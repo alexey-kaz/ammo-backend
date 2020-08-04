@@ -1,0 +1,33 @@
+MacBook-Pro-2 backend-v0.1 % npm start
+
+> backend-v0@0.0.1 start /Users/air/backend-v0.1
+> nest start
+
+air@MacBook-Pro-2 backend-v0.1 % npm start
+
+> backend-v0@0.0.1 start /Users/air/backend-v0.1
+> nest start
+
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [NestFactory] Starting Nest application...
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [InstanceLoader] ConfigHostModule dependencies initialized +13ms
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [InstanceLoader] AppModule dependencies initialized +0ms
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [InstanceLoader] ConfigModule dependencies initialized +0ms
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [RoutesResolver] AppController {}: +5ms
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [RouterExplorer] Mapped {, GET} route +3ms
+[Nest] 60420   - 07/28/2020, 3:05:36 PM   [NestApplication] Nest application successfully started +2ms
+^C
+air@MacBook-Pro-2 backend-v0.1 % npm start
+
+> backend-v0@0.0.1 start /Users/air/backend-v0.1
+> nest start
+
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [NestFactory] Starting Nest application...
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [InstanceLoader] ConfigHostModule dependencies initialized +10ms
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [InstanceLoader] AppModule dependencies initialized +0ms
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [InstanceLoader] ConfigModule dependencies initialized +0ms
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [RoutesResolver] AppController {}: +5ms
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [RouterExplorer] Mapped {, GET} route +2ms
+[Nest] 61080   - 07/28/2020, 3:42:16 PM   [NestApplication] Nest application successfully started +2ms
+aaa
+bbb
+ccc
