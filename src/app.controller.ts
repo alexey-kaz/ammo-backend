@@ -21,4 +21,19 @@ export class AppController {
   delLog(): boolean {
     return this.appService.getLogDelete();
   }
+  @Get('/cpu')
+  getServerCpuInfo() {
+    return this.appService.getServerCpuInfo();
+  }
+
+  @Get('/ram')
+  getServerMemoryInfo() {
+    return this.appService.getServerMemoryInfo();
+  }
+
+  @Get('/uptime')
+  getServerUptimeInfo() {
+    return this.appService.getServerUptimeInfo();
+  }
+
 }

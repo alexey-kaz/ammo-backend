@@ -29,6 +29,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "socket.io": "^2.3.0",
+    "systeminformation": "^4.26.10",
     "tail": "^2.0.4"
   },
   "devDependencies": {
