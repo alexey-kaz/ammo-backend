@@ -3,7 +3,7 @@ import { watch } from 'fs';
 import { execSync } from 'child_process';
 import {platform, loadavg, cpus } from 'os';
 import { currentLoad, mem } from 'systeminformation';
-import { Systeminformation, cpuTemperature, time } from 'systeminformation';
+import { Systeminformation, cpuTemperature, time, cpuCurrentspeed } from 'systeminformation';
 
 
 @Injectable()
@@ -39,7 +39,6 @@ export class AppService {
     this.memoryUsageHistory.push(memoryFreePercent);
   }
 
-
   private async getCpuLoadPoint() {
     const currtLoad = (await currentLoad()).currentload;
     this.cpuLoadHistory = this.cpuLoadHistory.slice(-60);
@@ -52,11 +51,8 @@ export class AppService {
     this.cpuLoadHistory.push(currentLoad);
   }
 
-
   public async getServerCpuInfo() {
-    if (!this.memoryUsageHistory.length) {
-      await this.getCpuLoadPoint();
-    }
+    return cpus();
   }
 
   private async getCpuTemp() {
