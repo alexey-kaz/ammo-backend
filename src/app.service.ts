@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { watch } from 'fs';
 import { execSync } from 'child_process';
-import {platform, loadavg, cpus } from 'os';
-import { currentLoad, mem } from 'systeminformation';
-import { Systeminformation, cpuTemperature, time, cpuCurrentspeed } from 'systeminformation';
+import { cpus, loadavg } from 'os';
+import { cpuTemperature, currentLoad, mem, Systeminformation, time } from 'systeminformation';
+import { GridsterItem } from 'angular-gridster2';
 
 
 @Injectable()
@@ -17,16 +17,16 @@ export class AppService {
   change = 0;
   listeners = 0;
   watcher;
+  dashboard: Array<GridsterItem[]> = [];
 
-  constructor(
-    
-    ) {
+  constructor()
+  {
         this.getCpuLoadPoint = this.getCpuLoadPointAlt;
-        this.getCpuTemp = this.getCpuTempAlt;
+        AppService.getCpuTemp = AppService.getCpuTempAlt;
   
       setInterval(async () => {
-        this.getCpuLoadPoint();
-        this.getMemoryUsagePoint();
+        await this.getCpuLoadPoint();
+        await this.getMemoryUsagePoint();
       }, 1000);
     }
 
@@ -55,14 +55,12 @@ export class AppService {
     return cpus();
   }
 
-  private async getCpuTemp() {
-    const cpuTempData = await cpuTemperature();
-
+  private static async getCpuTemp() {
     /*if (cpuTempData.main === -1 && this.configService.ui.temp) {
       return this.getCpuTempLegacy();
     } */
 
-    return cpuTempData;
+    return await cpuTemperature();
   }
 
 
@@ -83,7 +81,7 @@ export class AppService {
     };
   }
 
-  private async getCpuTempAlt() {
+  private static async getCpuTempAlt() {
     return {
       main: -1,
       cores: [],
@@ -98,17 +96,15 @@ export class AppService {
     function getData(cwd) {
       return run(cwd, 'tail -n 10 /Users/air/backend-v0.1/textLogFile');
     }
-    let data = getData('src');
     //console.log(data);
-    return data;
+    return getData('src');
   }
 
   getLogData() : string {
 
     // console.log(this.change + '--')
     this.change--;
-    let data = this.getDataHelp();
-    return data;
+    return this.getDataHelp();
   }
 
   getLogListener() : string {
@@ -141,5 +137,10 @@ export class AppService {
     // console.log(this.first_watch);
     this.first_watch = true;
     return false;
+  }
+
+  postDashboardChange(saveDashboard: any, tabIndex: number) {
+    this.dashboard[tabIndex] = saveDashboard;
+    console.log(this.dashboard)
   }
 }
