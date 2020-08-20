@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { GridsterItem } from 'angular-gridster2';
 
 @Controller()
 export class AppController {
@@ -39,7 +38,7 @@ export class AppController {
 
   @Post('/post_dash:TabIndex')
   postDash(@Body() saveDashboard: any, @Param ('TabIndex') tabIndex) {
-    console.log('savedash')
+    console.log('postdash')
     console.log('tabIndex = ' + Number(tabIndex))
     console.log(saveDashboard)
     return this.appService.postDashboardChange(saveDashboard, Number(tabIndex));
@@ -56,9 +55,7 @@ export class AppController {
   @Get('/new_tab')
   getNewTab() {
     console.log('new tab')
-    const tmp : GridsterItem[] = [{ cols: 0, rows: 0, x: 0, y: 0 }]
-    console.log(tmp)
-    this.appService.dashboard.push(tmp);
+    this.appService.dashboard.push([]);
     return('new tab')
   }
 
@@ -67,6 +64,23 @@ export class AppController {
     console.log('del tab')
     console.log('tabIndex = ' + Number(tabIndex))
     this.appService.dashboard.splice(Number(tabIndex), 1);
+    // this.appService.tabs.splice(Number(tabIndex), 1);
     return('del tab')
+  }
+
+  @Get('/get_tabs')
+  getTabs() {
+    console.log('get_tabs')
+    console.log(this.appService.dashboard.length)
+    return this.appService.dashboard.length;
+  }
+
+  @Get('/delete_all_saved')
+  getDeleteSaved() {
+    console.log('get_delete_saved')
+    this.appService.dashboard = [];
+    this.appService.getTabsClick = false;
+    console.log(this.appService.dashboard.length)
+    return ('get_delete_saved');
   }
 }

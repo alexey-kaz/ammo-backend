@@ -17,7 +17,8 @@ export class AppService {
   change = 0;
   listeners = 0;
   watcher;
-  dashboard: Array<GridsterItem[]> = [];
+  dashboard: Array<GridsterItem[]> = [[]];
+  getTabsClick: boolean = false;
 
   constructor()
   {
