@@ -97,4 +97,12 @@ export class AppController {
     console.log('get_infrastructure_table')
     return this.appService.Infrastructure_table;
   }
+
+  @Post('/post_auth_token')
+  postAuthToken(@Body() authTok: any) {
+    console.log('post_auth_token')
+    console.log(authTok.result)
+    this.appService.authToken = authTok.result;
+    return this.appService.authToken;
+  }
 }
