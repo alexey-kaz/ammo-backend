@@ -83,4 +83,18 @@ export class AppController {
     console.log(this.appService.dashboard.length)
     return ('get_delete_saved');
   }
+
+  @Post('/post_infrastructure_table')
+  postInfrastructureTable(@Body() saveInfTable: any) {
+    console.log('post_infrastructure_table')
+    console.log(saveInfTable)
+    this.appService.Infrastructure_table = saveInfTable;
+    return this.appService.Infrastructure_table;
+  }
+
+  @Get('/get_infrastructure_table')
+  getInfrastructureTable() {
+    console.log('get_infrastructure_table')
+    return this.appService.Infrastructure_table;
+  }
 }

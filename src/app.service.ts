@@ -19,6 +19,7 @@ export class AppService {
   watcher;
   dashboard: Array<GridsterItem[]> = [[]];
   getTabsClick: boolean = false;
+  Infrastructure_table;
 
   constructor()
   {
