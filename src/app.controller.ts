@@ -1,10 +1,14 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config'
+
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {
+  constructor(private readonly appService: AppService,
+              private configService: ConfigService) {
   }
+
   @Get('loglistener')
   getListen(): string {
     return this.appService.getLogListener();
@@ -104,5 +108,22 @@ export class AppController {
     console.log(authTok.result)
     this.appService.authToken = authTok.result;
     return this.appService.authToken;
+  }
+
+  @Get('/get_auth_token')
+  getAuthToken() {
+    console.log('get_auth_token')
+    return this.appService.authToken;
+  }
+
+  @Get('/get_zabbix_credentials')
+  getZabbixCredentials() {
+    console.log('get_zabbix_credentials');
+    const zabbix_address = this.configService.get('ZABBIX_IP');
+    const zabbix_port = this.configService.get('ZABBIX_PORT');
+    const zabbix_user = this.configService.get('ZABBIX_USER');
+    const zabbix_pass = this.configService.get('ZABBIX_PASS');
+    return {'zabbix_address': zabbix_address, 'zabbix_port': zabbix_port,
+      'zabbix_user': zabbix_user, 'zabbix_pass': zabbix_pass}
   }
 }
