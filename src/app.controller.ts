@@ -1,12 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ConfigService } from '@nestjs/config'
 
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService,
-              private configService: ConfigService) {
+  constructor(private readonly appService: AppService) {
   }
 
   @Get('loglistener')
@@ -88,11 +86,39 @@ export class AppController {
     return ('get_delete_saved');
   }
 
-  @Post('/post_infrastructure_table')
-  postInfrastructureTable(@Body() saveInfTable: any) {
+  @Post('/post_infrastructure_table:method')
+  async postInfrastructureTable(@Body() saveInfTable: any,
+                                @Param('method') method) {
     console.log('post_infrastructure_table')
     console.log(saveInfTable)
-    this.appService.Infrastructure_table = saveInfTable;
+    this.appService.hosts[saveInfTable['vm']] = saveInfTable['ip']
+    console.log(this.appService.hosts[saveInfTable['vm']])
+    if (method == 'create') {
+      const host = await this.appService.zabbix.request('host.create', {
+        host: saveInfTable['vm'],
+        groups: [{ groupid: '6' }],
+        templates: [{ templateid: '10186' }],
+        interfaces: [{
+          type: 1,
+          main: 1,
+          useip: 1,
+          ip: saveInfTable['ip'],
+          dns: '',
+          port: '10050'
+        }]
+      })
+      this.appService.hosts['vm'] = host;
+      console.log(host)
+    } else {
+      if (method == 'delete') {
+        const host = await this.appService.zabbix.request('host.delete', {
+          hostid: this.appService.hosts[saveInfTable['vm']]
+        })
+        console.log(host)
+      } else {
+        console.log("Error in method name")
+      }
+    }
     return this.appService.Infrastructure_table;
   }
 
@@ -115,16 +141,5 @@ export class AppController {
     console.log('get_auth_token')
     console.log(this.appService.authToken)
     return this.appService.authToken;
-  }
-
-  @Get('/get_zabbix_credentials')
-  getZabbixCredentials() {
-    console.log('get_zabbix_credentials');
-    const zabbix_address = this.configService.get('ZABBIX_IP');
-    const zabbix_port = this.configService.get('ZABBIX_PORT');
-    const zabbix_user = this.configService.get('ZABBIX_USER');
-    const zabbix_pass = this.configService.get('ZABBIX_PASS');
-    return {'zabbix_address': zabbix_address, 'zabbix_port': zabbix_port,
-      'zabbix_user': zabbix_user, 'zabbix_pass': zabbix_pass}
   }
 }

@@ -20,18 +20,19 @@ export class AppService {
   getTabsClick: boolean = false;
   Infrastructure_table;
   authToken;
+  Zabbix = require('zabbix-promise')
+  zabbix = new this.Zabbix({
+    url: 'http://' + process.env.ZABBIX_IP + ':' + process.env.ZABBIX_PORT + '/api_jsonrpc.php',
+    user: process.env.ZABBIX_USER,
+    password: process.env.ZABBIX_PASS,
+  })
+  hosts = {}
 
   constructor()
   {
-    const Zabbix = require('zabbix-promise')
-    const zabbix = new Zabbix({
-      url: 'http://172.30.7.141:8081/api_jsonrpc.php',
-      user: process.env.ZABBIX_USER,
-      password: process.env.ZABBIX_PASS,
-    })
     const main = async () => {
       try {
-        this.authToken = JSON.stringify(await zabbix.login())
+        this.authToken = JSON.stringify(await this.zabbix.login())
         console.log(this.authToken)
       } catch (error) {
         console.error(error)
