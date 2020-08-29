@@ -113,6 +113,7 @@ export class AppController {
   @Get('/get_auth_token')
   getAuthToken() {
     console.log('get_auth_token')
+    console.log(this.appService.authToken)
     return this.appService.authToken;
   }
 

@@ -5,7 +5,6 @@ import { cpus, loadavg } from 'os';
 import { cpuTemperature, currentLoad, mem, Systeminformation, time } from 'systeminformation';
 import { GridsterItem } from 'angular-gridster2';
 
-
 @Injectable()
 export class AppService {
 
@@ -24,14 +23,28 @@ export class AppService {
 
   constructor()
   {
-        this.getCpuLoadPoint = this.getCpuLoadPointAlt;
-        AppService.getCpuTemp = AppService.getCpuTempAlt;
-  
-      setInterval(async () => {
-        await this.getCpuLoadPoint();
-        await this.getMemoryUsagePoint();
-      }, 1000);
+    const Zabbix = require('zabbix-promise')
+    const zabbix = new Zabbix({
+      url: 'http://172.30.7.141:8081/api_jsonrpc.php',
+      user: process.env.ZABBIX_USER,
+      password: process.env.ZABBIX_PASS,
+    })
+    const main = async () => {
+      try {
+        this.authToken = JSON.stringify(await zabbix.login())
+        console.log(this.authToken)
+      } catch (error) {
+        console.error(error)
+      }
     }
+    main()
+    this.getCpuLoadPoint = this.getCpuLoadPointAlt;
+    AppService.getCpuTemp = AppService.getCpuTempAlt;
+    setInterval(async () => {
+      await this.getCpuLoadPoint();
+      await this.getMemoryUsagePoint();
+      }, 1000);
+  }
 
   private async getMemoryUsagePoint() {
     const memory = await mem();
