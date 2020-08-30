@@ -10,9 +10,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cead064f-837d-4677-b43d-2231e178f34a" name="Default Changelist" comment="host create/delete in back">
+    <list default="true" id="cead064f-837d-4677-b43d-2231e178f34a" name="Default Changelist" comment="host create/delete fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +80,7 @@
       <workItem from="1597404813943" duration="17501000" />
       <workItem from="1597736988514" duration="13905000" />
       <workItem from="1598489107802" duration="2762000" />
-      <workItem from="1598538434610" duration="14858000" />
+      <workItem from="1598538434610" duration="20055000" />
     </task>
     <task id="LOCAL-00001" summary="zabbix login in backend">
       <created>1598714160451</created>
@@ -95,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1598736395287</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="host create/delete fix">
+      <created>1598792592255</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1598792592255</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +124,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="zabbix login in backend" />
     <MESSAGE value="host create/delete in back" />
-    <option name="LAST_COMMIT_MESSAGE" value="host create/delete in back" />
+    <MESSAGE value="host create/delete fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="host create/delete fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="789" y="308" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1596288881511">
@@ -155,10 +164,10 @@
     <state width="1659" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1595601944320" />
     <state width="819" height="255" key="GridCell.Tab.0.right/0.23.1680.952@0.23.1680.952" timestamp="1597960836037" />
     <state width="819" height="255" key="GridCell.Tab.0.right/0.23.1680.953@0.23.1680.953" timestamp="1598538426129" />
-    <state x="20" y="226" key="Vcs.Push.Dialog.v2" timestamp="1598736408053">
+    <state x="20" y="226" key="Vcs.Push.Dialog.v2" timestamp="1598792600502">
       <screen x="0" y="23" width="1680" height="953" />
     </state>
-    <state x="20" y="226" key="Vcs.Push.Dialog.v2/0.23.1680.953@0.23.1680.953" timestamp="1598736408053" />
+    <state x="20" y="226" key="Vcs.Push.Dialog.v2/0.23.1680.953@0.23.1680.953" timestamp="1598792600502" />
     <state x="208" y="420" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598433443053">
       <screen x="0" y="23" width="1680" height="953" />
     </state>

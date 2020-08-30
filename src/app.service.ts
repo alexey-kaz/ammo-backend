@@ -19,6 +19,8 @@ export class AppService {
   dashboard: Array<GridsterItem[]> = [[]];
   getTabsClick: boolean = false;
   Infrastructure_table;
+  saveInfTable = {}
+  key = "tableRows"
   authToken;
   Zabbix = require('zabbix-promise')
   zabbix = new this.Zabbix({
@@ -30,6 +32,7 @@ export class AppService {
 
   constructor()
   {
+    this.saveInfTable[this.key] = [];
     const main = async () => {
       try {
         this.authToken = JSON.stringify(await this.zabbix.login())

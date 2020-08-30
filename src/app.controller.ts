@@ -92,10 +92,10 @@ export class AppController {
     console.log('post_infrastructure_table')
     console.log(saveInfTable)
     console.log(this.appService.hosts)
-    // console.log(this.appService.hosts[saveInfTable['vm']])
-    // this.appService.Infrastructure_table.push(saveInfTable)
+    let obj = {'vm': saveInfTable['vm'], 'ip': saveInfTable['ip'], 'isEditable': false}
     if (method == 'create') {
       console.log('create')
+      this.appService.saveInfTable[this.appService.key].push(obj)
       const host = await this.appService.zabbix.request('host.create', {
         host: saveInfTable['vm'],
         groups: [{ groupid: '6' }],
@@ -115,6 +115,19 @@ export class AppController {
     } else {
       if (method == 'delete') {
         console.log('delete')
+
+        let index = -1;
+        let val = saveInfTable['vm']
+        let filteredObj = this.appService.saveInfTable[this.appService.key].find(function(item, i){
+          if(item.vm === val){
+            index = i;
+            return item.vm;
+          }
+        });
+        console.log(index, ',', filteredObj);
+        this.appService.saveInfTable[this.appService.key].splice(index,1)
+
+        console.log(this.appService.saveInfTable[this.appService.key])
         console.log(this.appService.hosts)
         console.log(this.appService.hosts[saveInfTable['vm']])
         const host = await this.appService.zabbix.request('host.delete', [
@@ -131,7 +144,7 @@ export class AppController {
   @Get('/get_infrastructure_table')
   getInfrastructureTable() {
     console.log('get_infrastructure_table')
-    return this.appService.Infrastructure_table;
+    return this.appService.saveInfTable;
   }
 
   @Post('/post_auth_token')
