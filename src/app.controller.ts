@@ -91,13 +91,15 @@ export class AppController {
                                 @Param('method') method) {
     console.log('post_infrastructure_table')
     console.log(saveInfTable)
-    this.appService.hosts[saveInfTable['vm']] = saveInfTable['ip']
-    console.log(this.appService.hosts[saveInfTable['vm']])
+    console.log(this.appService.hosts)
+    // console.log(this.appService.hosts[saveInfTable['vm']])
+    // this.appService.Infrastructure_table.push(saveInfTable)
     if (method == 'create') {
+      console.log('create')
       const host = await this.appService.zabbix.request('host.create', {
         host: saveInfTable['vm'],
         groups: [{ groupid: '6' }],
-        templates: [{ templateid: '10186' }],
+        templates: [{ templateid: '10272' }],
         interfaces: [{
           type: 1,
           main: 1,
@@ -107,13 +109,17 @@ export class AppController {
           port: '10050'
         }]
       })
-      this.appService.hosts['vm'] = host;
+      this.appService.hosts[saveInfTable['vm']] = host['hostids'][0];
       console.log(host)
+      console.log(this.appService.hosts)
     } else {
       if (method == 'delete') {
-        const host = await this.appService.zabbix.request('host.delete', {
-          hostid: this.appService.hosts[saveInfTable['vm']]
-        })
+        console.log('delete')
+        console.log(this.appService.hosts)
+        console.log(this.appService.hosts[saveInfTable['vm']])
+        const host = await this.appService.zabbix.request('host.delete', [
+          this.appService.hosts[saveInfTable['vm']]
+        ])
         console.log(host)
       } else {
         console.log("Error in method name")
@@ -141,5 +147,24 @@ export class AppController {
     console.log('get_auth_token')
     console.log(this.appService.authToken)
     return this.appService.authToken;
+  }
+
+  @Get('/get_zabbix_cpu')
+  async getZabbixCpu() {
+    console.log('get_zabbix_cpu')
+    console.log(this.appService.authToken)
+    console.log(this.appService.hosts['server'])
+    const cpu = await this.appService.zabbix.request(
+      'item.get', {
+        'hostids': this.appService.hosts['server'],
+        "output": "extend",
+        "search": {
+          "key_": "system.cpu.load[all,avg1]"
+        },
+        "sortfield": "name"
+      }
+    )
+    console.log(cpu)
+    return cpu;
   }
 }
